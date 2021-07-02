@@ -1,0 +1,12 @@
+.weather-current {
+    height : 300px;
+}
+
+.weather-forecast-group {
+    display: flex;
+}
+
+.weather-forecast-box {
+    height :  140px;
+    width: 20%;
+}
