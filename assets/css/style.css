@@ -1,3 +1,7 @@
+.form-label {
+    width: 100%;
+}
+
 .weather-current {
     height : 300px;
 }
