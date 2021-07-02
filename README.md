@@ -1,4 +1,4 @@
 # Weather-Dashboard
 
 ## Page URL
-https://github.com/qtian13/Weather-Dashboard/settings
+https://qtian13.github.io/Weather-Dashboard/

@@ -25,7 +25,7 @@ function clickHandler(event) {
         }
         current.lon = data.coord.lon;
         current.lat = data.coord.lat;
-        requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + current.lat + "&lon=" + current.lon + "&exclude=minutely,hourly,daily&appid=7c84bd2799ba53ed40763cdc11025a8e";
+        requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + current.lat + "&lon=" + current.lon + "&exclude=minutely,hourly&appid=7c84bd2799ba53ed40763cdc11025a8e";
         fetch(requestUrl)
         .then(function(response) {
             if (response.status === 200) {
@@ -53,10 +53,21 @@ function clickHandler(event) {
             imgEl.attr("src", "https://openweathermap.org/img/wn/" + current.weatherIcon + ".png");
             mainInfoEl.append(imgEl);
             $(".weather-current").append(mainInfoEl, tempEl, humidityEl, windEl, uvIndexEl);
+            $(".weather-forecast-card").each(function(i) {
+                var forecastDateEl = $("<h3>");
+                var forecastTempEl = $("<div>");
+                var forecastHumidityEl = $("<div>");
+                var forecastWeatherEl = $("<div>");
+                var forecastImgEl = $("<img>");
+                forecastDateEl.text(moment().add(i + 1, "days").format('L'));
+                forecastTempEl.text("Temperature: " + data.daily[i].temp.day);
+                forecastHumidityEl.text("Humidity: " + data.daily[i].humidity);
+                forecastImgEl.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png");
+                forecastWeatherEl.append(forecastImgEl);
+                $(this).append(forecastDateEl, forecastWeatherEl, forecastTempEl, forecastHumidityEl);
+            })
         })
     })
 }
 
 $("#search-button").on("click", clickHandler);
-
-console.log("I am binded");
