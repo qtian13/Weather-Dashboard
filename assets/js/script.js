@@ -1,17 +1,43 @@
 var current = {};
-
-
-
+var cityName = "";
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+if (searchHistory === null) {
+    searchHistory = [];
+} else if (searchHistory.length != 0){
+    cityName = searchHistory[0];
+    fetchWeatherData(cityName);
+    for (var i = 0; i < searchHistory.length; i++) {
+        var searchHistoryEl = $("<div>").text(searchHistory[i]);
+        $(".search-history-box").append(searchHistoryEl);
+        searchHistoryEl.addClass("search-history");
+    }
+}
 
 function clickHandler() {
-    var cityName = $("#search-input").val().replace(/\s+/g, ' ').trim();
+    cityName = $("#search-input").val().replace(/\s+/g, ' ').trim();
     var words = cityName.split(" ");
     $("#search-input").val("");
     for (let i = 0; i < words.length; i++) {
         words[i] = words[i][0].toUpperCase() + words[i].substr(1);
     }
     cityName = words.join(" ");
+    updateSearchHistory(cityName);
     fetchWeatherData(cityName);
+}
+
+function updateSearchHistory(cityToAdd) {
+    $(".search-history").each(function(i) {
+        if ($(this).text() == cityToAdd) {
+            $(this).remove();
+            searchHistory.splice(i, 1);
+            return false;
+        }
+    });
+    var searchHistoryEl = $("<div>").text(cityName);
+    $(".search-history-box").prepend(searchHistoryEl);
+    searchHistoryEl.addClass("search-history");
+    searchHistory.unshift(cityToAdd);
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
 
 function fetchWeatherData(cityName) {
@@ -21,9 +47,6 @@ function fetchWeatherData(cityName) {
     fetch(requestUrl)
     .then(function(response) {
         if (response.status === 200) {
-            var searchHistory = $("<div>").text(cityName);
-            $(".search-history-box").prepend(searchHistory);
-            searchHistory.addClass("search-history");
             return response.json();
         } else if (response.status === 404) {
             alert("Please enter a valid city name. Be careful of the space!")
@@ -84,8 +107,14 @@ function fetchWeatherData(cityName) {
 
 $("#search-button").on("click", clickHandler);
 $(".search-container").on('click', '.search-history', function (event) {
-    console.log("I am executed");
-    fetchWeatherData($(event.target).text());
-    $(event.target).empty();
+    // fetchWeatherData($(event.target).text());
+    // $(event.target).empty();
+    // searchHistory = []; 
+    // $(".search-history").each(function() {
+    //     searchHistory.push($(this).text());
+    // })
+    cityName = $(event.target).text();
+    fetchWeatherData(cityName);
+    updateSearchHistory(cityName);
 });
 
