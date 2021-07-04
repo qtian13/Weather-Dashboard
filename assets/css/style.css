@@ -27,13 +27,12 @@ body {
     background-color: var(--background-color-);
     padding-left: 0px;
     padding-right: 0px;
+    height: 470px;
+    overflow: scroll;
 }
 .search-history-box {
     padding-top: 5px;
     padding-bottom: 5px;
-}
-.search-history-box div  {
-    padding-left: 10px;
 }
 #search-input {
     background-color: rgba(243, 245, 247, 0.9);
@@ -41,10 +40,15 @@ body {
 #search-button {
     background-color: rgba(3, 10, 19, 0.7);
 }
-.form-label {
-    width: 100%;
+.search-history-text {
+    flex: 1;
 }
-
+.delete-button {
+    background-color: rgba(243, 245, 247, 0.9);
+    flex: 0 0 25px;
+    height: 25px;
+    padding: 0;
+}
 .weather-info-container {
     padding-left: 10px;
     padding-right: 10px;
@@ -58,20 +62,34 @@ h3 {
     padding-left: 10px;
     padding-right: 10px;
 }
+.uvindex-num {
+    display: inline-block;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
 .weather-forecast-group {
     display: flex;
 }
 
 .weather-forecast-box {
     width: 20%;
-    padding: 5px;
+    padding: 1px;
 }
 
 .weather-forecast-card {
     background-color: var(--background-color-);
     padding: 10px;
 }
-.weather-forecast-card div, .weather-current div, .search-history-box div {
+.weather-forecast-card div, .weather-current div, .search-history {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.search-history:hover {
+    background-color: rgba(90, 131, 192, 0.7);
+}
+
+.search-history-text {
+    padding-left: 10px;
 }
