@@ -1,4 +1,35 @@
-var current = {};
+var weather = {
+    current: {
+        Temperature: "--.--",
+        Humidity: "--",
+        windSpeed: "--.--",
+        uvIndex: "-.-",
+    },
+    daily: {
+        dayOne: {
+            temp: "--.--",
+            humidity: "--",
+        },
+        dayTwo: {
+            temp: "--.--",
+            humidity: "--",
+        },
+        dayThree: {
+            temp: "--.--",
+            humidity: "--",
+        },
+        dayFour: {
+            temp: "--.--",
+            humidity: "--",
+        },
+        dayFive: {
+            temp: "--.--",
+            humidity: "--",
+        },
+
+    }
+};
+var current = weather.current;
 var cityName = "";
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
 if (searchHistory === null) {
@@ -68,6 +99,7 @@ function fetchWeatherData(cityName) {
             }
         })
         .then(function(data) {
+            console.log(data);
             var mainInfoEl = $("<h2>");
             var tempEl = $("<div>");
             var humidityEl = $("<div>");
@@ -78,7 +110,7 @@ function fetchWeatherData(cityName) {
             current.humidity = data.current.humidity;
             current.windSpeed = data.current.wind_speed;
             current.uvIndex = data.current.uvi;
-            current.weather = data.current.weather[0].main;
+            // current.weather = data.current.weather[0].main;
             current.weatherIcon = data.current.weather[0].icon;
             mainInfoEl.text(cityName + " " + moment().format("l"));
             tempEl.html("Temperature: " + current.temp + " &#8457");
@@ -89,13 +121,13 @@ function fetchWeatherData(cityName) {
             mainInfoEl.append(imgEl);
             $(".weather-current").append(mainInfoEl, tempEl, humidityEl, windEl, uvIndexEl);
             $(".weather-forecast-card").each(function(i) {
-                var forecastDateEl = $("<h3>");
+                var forecastDateEl = $("<h4>");
                 var forecastTempEl = $("<div>");
                 var forecastHumidityEl = $("<div>");
                 var forecastWeatherEl = $("<div>");
                 var forecastImgEl = $("<img>");
-                forecastDateEl.text(moment().add(i + 1, "days").format('L'));
-                forecastTempEl.html("Temperature: " + data.daily[i].temp.day + " &#8457");
+                forecastDateEl.text(moment().add(i + 1, "days").format('l'));
+                forecastTempEl.html("Temp: " + data.daily[i].temp.day + " &#8457");
                 forecastHumidityEl.text("Humidity: " + data.daily[i].humidity + "%");
                 forecastImgEl.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png");
                 forecastWeatherEl.append(forecastImgEl);
@@ -107,12 +139,6 @@ function fetchWeatherData(cityName) {
 
 $("#search-button").on("click", clickHandler);
 $(".search-container").on('click', '.search-history', function (event) {
-    // fetchWeatherData($(event.target).text());
-    // $(event.target).empty();
-    // searchHistory = []; 
-    // $(".search-history").each(function() {
-    //     searchHistory.push($(this).text());
-    // })
     cityName = $(event.target).text();
     fetchWeatherData(cityName);
     updateSearchHistory(cityName);

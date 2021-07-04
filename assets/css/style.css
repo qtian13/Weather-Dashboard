@@ -1,16 +1,77 @@
+:root {
+    --background-color-: rgba(194, 196, 199, 0.5);
+}
+body, html {
+    height: 100%;
+}
+body {
+    background-image: url('../images/background.jpeg');
+    background-size: 100% 100%;
+    color:rgba(3, 10, 19, 0.7);
+}
+
+.jumbotron {
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Permanent Marker', cursive;
+    font-family: 'Roboto', sans-serif;
+    color: rgba(27, 28, 29, 0.9);
+    text-align: center;
+    background-color: initial;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 15px;
+}
+.search-container {
+    background-color: var(--background-color-);
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.search-history-box {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.search-history-box div  {
+    padding-left: 10px;
+}
+#search-input {
+    background-color: rgba(243, 245, 247, 0.9);
+}
+#search-button {
+    background-color: rgba(3, 10, 19, 0.7);
+}
 .form-label {
     width: 100%;
 }
 
-.weather-current {
-    height : 300px;
+.weather-info-container {
+    padding-left: 10px;
+    padding-right: 10px;
 }
-
+.weather-current {
+    padding: 10px;
+    background-color: var(--background-color-);
+}
+h3 {
+    margin: 15px 0px 5px 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
 .weather-forecast-group {
     display: flex;
 }
 
 .weather-forecast-box {
-    height :  140px;
     width: 20%;
+    padding: 5px;
+}
+
+.weather-forecast-card {
+    background-color: var(--background-color-);
+    padding: 10px;
+}
+.weather-forecast-card div, .weather-current div, .search-history-box div {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
