@@ -1,39 +1,68 @@
-var weather = {
+var dataDefault = {
+    timezone : "x",
     current: {
-        Temperature: "--.--",
-        Humidity: "--",
-        windSpeed: "--.--",
-        uvIndex: "-.-",
+        temp: "--.--",
+        humidity: "--",
+        wind_speed: "--.--",
+        uvi: "-.-",
+        weather: [{
+            icon: "",
+        }]
     },
-    daily: {
-        dayOne: {
-            temp: "--.--",
+    daily: [
+        {
+            temp: {
+                day: "--.--",
+            },
             humidity: "--",
+            weather: [{
+                icon: "",
+            }]
         },
-        dayTwo: {
-            temp: "--.--",
+        {
+            temp: {
+                day: "--.--",
+            },
             humidity: "--",
+            weather: [{
+                icon: "",
+            }]
         },
-        dayThree: {
-            temp: "--.--",
+        {
+            temp: {
+                day: "--.--",
+            },
             humidity: "--",
+            weather: [{
+                icon: "",
+            }]
         },
-        dayFour: {
-            temp: "--.--",
+        {
+            temp: {
+                day: "--.--",
+            },
             humidity: "--",
+            weather: [{
+                icon: "",
+            }]
         },
-        dayFive: {
-            temp: "--.--",
+        {
+            temp: {
+                day: "--.--",
+            },
             humidity: "--",
-        },
-
-    }
+            weather: [{
+                icon: "",
+            }]
+        }
+    ]
 };
-var current = weather.current;
-var cityName = "";
+var current = {};
+var cityName = "City Name";
 var searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
 if (searchHistory === null) {
     searchHistory = [];
+    loadData(dataDefault);
 } else if (searchHistory.length != 0){
     cityName = searchHistory[0];
     fetchWeatherData(cityName);
@@ -80,13 +109,14 @@ function fetchWeatherData(cityName) {
         if (response.status === 200) {
             return response.json();
         } else if (response.status === 404) {
-            alert("Please enter a valid city name. Be careful of the space!")
+            loadData(dataDefault);
+            $(document).ready(function(){
+                alert("Sorry we cannot find weather data of this city!");
+            });   
         }
     })
     .then(function(data) {
-        if (!data) {
-            return;
-        }
+        console.log(data);
         current.lon = data.coord.lon;
         current.lat = data.coord.lat;
         requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + current.lat + "&lon=" + current.lon + "&exclude=minutely,hourly&units=imperial&appid=7c84bd2799ba53ed40763cdc11025a8e";
@@ -95,45 +125,58 @@ function fetchWeatherData(cityName) {
             if (response.status === 200) {
                 return response.json();
             } else {
-                alert("Cannot find the page");
+                loadData(dataDefault);
+                $(document).ready(function(){
+                    alert("Sorry we cannot find weather data of this city!");
+                });
             }
         })
         .then(function(data) {
             console.log(data);
-            var mainInfoEl = $("<h2>");
-            var tempEl = $("<div>");
-            var humidityEl = $("<div>");
-            var windEl = $("<div>");
-            var uvIndexEl = $("<div>");
-            var imgEl = $("<img>");
-            current.temp = data.current.temp;
-            current.humidity = data.current.humidity;
-            current.windSpeed = data.current.wind_speed;
-            current.uvIndex = data.current.uvi;
-            // current.weather = data.current.weather[0].main;
-            current.weatherIcon = data.current.weather[0].icon;
-            mainInfoEl.text(cityName + " " + moment().format("l"));
-            tempEl.html("Temperature: " + current.temp + " &#8457");
-            humidityEl.text("Humidity: " + current.humidity + "%");
-            windEl.text("Wind Speed: " + current.windSpeed + " MPH");
-            uvIndexEl.text("UV Index: " + current.uvIndex);
-            imgEl.attr("src", "https://openweathermap.org/img/wn/" + current.weatherIcon + ".png");
-            mainInfoEl.append(imgEl);
-            $(".weather-current").append(mainInfoEl, tempEl, humidityEl, windEl, uvIndexEl);
-            $(".weather-forecast-card").each(function(i) {
-                var forecastDateEl = $("<h4>");
-                var forecastTempEl = $("<div>");
-                var forecastHumidityEl = $("<div>");
-                var forecastWeatherEl = $("<div>");
-                var forecastImgEl = $("<img>");
-                forecastDateEl.text(moment().add(i + 1, "days").format('l'));
-                forecastTempEl.html("Temp: " + data.daily[i].temp.day + " &#8457");
-                forecastHumidityEl.text("Humidity: " + data.daily[i].humidity + "%");
-                forecastImgEl.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png");
-                forecastWeatherEl.append(forecastImgEl);
-                $(this).append(forecastDateEl, forecastWeatherEl, forecastTempEl, forecastHumidityEl);
-            })
+            loadData(data);
         })
+    })
+}
+
+function loadData(data) {
+    var mainInfoEl = $("<h2>");
+    var tempEl = $("<div>");
+    var humidityEl = $("<div>");
+    var windEl = $("<div>");
+    var uvIndexEl = $("<div>");
+    var imgEl = $("<img>");
+    current.temp = data.current.temp;
+    current.humidity = data.current.humidity;
+    current.windSpeed = data.current.wind_speed;
+    current.uvIndex = data.current.uvi;
+    // current.weather = data.current.weather[0].main;
+    current.weatherIcon = data.current.weather[0].icon;
+    var momentTime = data.timezone === "x"  ? moment() 
+                                            : moment.unix((moment().valueOf())/1000 + data.timezone_offset);
+    mainInfoEl.text(cityName + " " + momentTime.format("l"));
+    tempEl.html("Temperature: " + current.temp + " &#8457");
+    humidityEl.text("Humidity: " + current.humidity + "%");
+    windEl.text("Wind Speed: " + current.windSpeed + " MPH");
+    uvIndexEl.text("UV Index: " + current.uvIndex);
+    if (current.weatherIcon !== "") {
+        imgEl.attr("src", "https://openweathermap.org/img/wn/" + current.weatherIcon + ".png");
+    }
+    mainInfoEl.append(imgEl);
+    $(".weather-current").append(mainInfoEl, tempEl, humidityEl, windEl, uvIndexEl);
+    $(".weather-forecast-card").each(function (i) {
+        var forecastDateEl = $("<h4>");
+        var forecastTempEl = $("<div>");
+        var forecastHumidityEl = $("<div>");
+        var forecastWeatherEl = $("<div>");
+        var forecastImgEl = $("<img>");
+        forecastDateEl.text(momentTime.add(1, "days").format('l'));
+        forecastTempEl.html("Temp: " + data.daily[i].temp.day + " &#8457");
+        forecastHumidityEl.text("Humidity: " + data.daily[i].humidity + "%");
+        if (data.daily[i].weather[0].icon !== "") {
+            forecastImgEl.attr("src", "https://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + ".png");
+        }
+        forecastWeatherEl.append(forecastImgEl);
+        $(this).append(forecastDateEl, forecastWeatherEl, forecastTempEl, forecastHumidityEl);
     })
 }
 
