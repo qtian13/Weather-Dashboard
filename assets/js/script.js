@@ -223,6 +223,7 @@ function removeDuplicate (citySearched) {
 
 $("#search-button").on("click", searchButtonClickHandler);
 $(".search-container").on('click', '.search-history-text', function (event) {
+    console.log("search start");
     cityName = $(event.target).text();
     fetchWeatherData(cityName);
     updateSearchHistory(cityName);
@@ -236,5 +237,26 @@ $(".search-container").on('click', '.delete-button', function (event) {
     //     loadData(dataDefault);
     // }  
 });
+$("#search-input").on("focus", function() {
+    if ($(window).width() < 992) {
+        $(".search-history-box").css("display", "block");
+    }
+})
+$(".search-container").on("focusout", function() {
+    $(document).ready(function() {
+        if ($(window).width() < 992) {
+            $(".search-history-box").css("display", "none");
+        }
+    });
+})
+
+$( window ).resize(function() {
+    if ($(window).width() >= 992) {
+        $(".search-history-box").css("display", "block");
+    } else {
+        $(".search-history-box").css("display", "none");
+    }
+});
+
 
 
