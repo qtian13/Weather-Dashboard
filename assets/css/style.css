@@ -44,8 +44,11 @@ body {
     width: 100%;
     padding-left: 0px;
     padding-right: 0px;
-    max-height: 457px;
-    overflow: scroll;
+}
+
+.search-history-box {
+    max-height: 420px;
+    overflow: auto;
 }
 
 #search-input {

@@ -139,7 +139,8 @@ function updateSearchHistory(cityToAdd) {
 
 function fetchWeatherData(cityName) {
     // create a request url
-    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=7c84bd2799ba53ed40763cdc11025a8e";
+    var APIKey = "7c84bd2799ba53ed40763cdc11025a8e";
+    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
     
     // empty the dashboard
     $(".weather-current").empty();
@@ -160,7 +161,7 @@ function fetchWeatherData(cityName) {
         if (data === undefined) {
             return;
         }
-        requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=7c84bd2799ba53ed40763cdc11025a8e";
+        requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=" + APIKey;
         fetch(requestUrl)
         .then(function(response) {
             if (response.status === 200) {
@@ -193,7 +194,7 @@ function displayData(data) {
     var imgEl = $("<img>");
     // calc the local time of the city searched for
     var momentTime = data.timezone === "x"  ? moment() 
-                                            : moment.unix((moment().valueOf())/1000 + data.timezone_offset);
+                                            : moment().utcOffset(data.timezone_offset / 60);
     // set text content according to data info
     mainInfoEl.text(cityName + " " + momentTime.format("l"));
     tempEl.html("Temperature: " + data.current.temp + " &#8457");
