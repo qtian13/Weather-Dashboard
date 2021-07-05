@@ -1,4 +1,4 @@
-# Weather-Dashboard
+# Weather Dashboard
 This project is to create a weather dashboard. The current weather and 5-day forecast weather data would be displayed when user search for a city.
 ## Getting Started
 ```console

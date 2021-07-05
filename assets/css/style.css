@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    background-image: inherit;
+    background-color: initial;
     color:rgba(3, 10, 19, 0.7);
 }
 
@@ -28,55 +28,70 @@ body {
     padding-bottom: 20px;
     margin-bottom: 0px;
 }
+
+.display-4 {
+    text-shadow: 2px 2px var(--background-color-);
+}
+
 .container, .row {
     margin-left: auto;
     margin-right: auto;
     padding: 0;
 }
+
 .search-container {
     background-color: var(--background-color-);
     width: 100%;
     padding-left: 0px;
     padding-right: 0px;
-    height: 470px;
+    max-height: 457px;
     overflow: scroll;
 }
+
 #search-input {
     background-color: rgba(243, 245, 247, 0.9);
 }
+
 #search-button {
     background-color: rgba(3, 10, 19, 0.7);
 }
+
 .search-history-text {
     flex: 1;
 }
+
 .delete-button {
-    background-color: rgba(243, 245, 247, 0.9);
     flex: 0 0 25px;
     height: 25px;
     padding: 0;
 }
+
 .weather-info-box {
     padding-right: 0px;
 }
+
 .col-lg-12 {
     padding-right: 0px;
 }
+
 .weather-current {
     padding: 10px;
     background-color: var(--background-color-);
 }
+
 h3 {
     margin: 15px 0px 5px 0px;
     padding-left: 10px;
     padding-right: 10px;
 }
+
 .uvindex-num {
     display: inline-block;
     height: 100%;
     padding-left: 5px;
     padding-right: 5px;
 }
+
 .weather-forecast-group {
     display: flex;
     flex-wrap: wrap;
@@ -91,7 +106,10 @@ h3 {
     background-color: var(--background-color-);
     padding: 10px;
 }
-.weather-forecast-card div, .weather-current div, .search-history {
+
+.weather-forecast-card div, 
+.weather-current div, 
+.search-history {
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -104,36 +122,52 @@ h3 {
     padding-left: 10px;
 }
 
+/* for tablet screen size */
 @media screen and (max-width: 991px) {
     .search-container {
         height: auto;
     }
+
     .search-history-box {
         display: none;
     }
+
     .weather-info-box {
         margin-top: 15px;
         padding: 0px;
     }
+
     .col-lg-12 {
         padding-left: 0px;
     }
 }
 
+/* for mobile screen size */
 @media screen and (max-width: 767px) {
     body {
         margin-left: auto;
         margin-right: auto;
         background-size: cover;
     }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+
     .container {
         padding-left: 5px;
         padding-right: 5px;
     }
+
     .weather-forecast-box {
         width: 50%;
         padding: 1px;
     }
+
     p {
         margin-bottom: 0px;
     }
