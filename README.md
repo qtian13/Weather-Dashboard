@@ -30,7 +30,7 @@ git clone https://github.com/qtian13/Weather-Dashboard.git
 https://qtian13.github.io/Weather-Dashboard/
 
 ## Page Demo
-![Weather Dashboard Demo]()
+![Weather Dashboard Demo](assets/images/demo.gif)
 
 ## Page Screen Shot with Different Screen Width
 ![fit desktop screen](assets/images/desktop_screen.png)
