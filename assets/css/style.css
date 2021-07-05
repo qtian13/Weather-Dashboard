@@ -69,11 +69,7 @@ body {
     padding: 0;
 }
 
-.weather-info-box {
-    padding-right: 0px;
-}
-
-.col-lg-12 {
+.weather-info-box, .weather-info-box .col-lg-12 {
     padding-right: 0px;
 }
 
@@ -139,9 +135,9 @@ h3 {
         margin-top: 15px;
         padding: 0px;
     }
-
-    .col-lg-12 {
-        padding-left: 0px;
+    
+    .col-12 {
+        padding: 0px;
     }
 }
 
