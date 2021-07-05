@@ -48,6 +48,10 @@ body {
 
 .search-history-box {
     max-height: 420px;
+    overflow: hidden;
+}
+
+.search-history-box:hover {
     overflow: auto;
 }
 

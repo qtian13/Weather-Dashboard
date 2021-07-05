@@ -75,7 +75,7 @@ function loadPage() {
         for (var i = 0; i < searchHistory.length; i++) {
             var searchHistoryEl = $("<div>");
             var searchHistoryTextEl = $("<div>").text(searchHistory[i]);
-            var deleteButton = $("<button>").text("X");
+            var deleteButton = $("<button>").text("x");
             searchHistoryEl.addClass("search-history d-flex");
             searchHistoryTextEl.addClass("search-history-text");
             deleteButton.addClass("btn delete-button");
