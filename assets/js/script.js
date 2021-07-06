@@ -192,9 +192,18 @@ function displayData(data) {
     var uvIndexEl = $("<div>");
     var uvIndexNum = $("<span>");
     var imgEl = $("<img>");
+    console.log(data);
     // calc the local time of the city searched for
     var momentTime = data.timezone === "x"  ? moment() 
                                             : moment().utcOffset(data.timezone_offset / 60);
+    // change the background image and font color in jumbotron
+    if (data.timezone === "x" || ((data.current.dt >= data.current.sunrise) && (data.current.dt < data.current.sunset))) {
+        $("html").css("background-image", "url('assets/images/background.jpeg')");
+        $(".jumbotron").css("color", "rgba(27, 28, 29, 0.9)");
+    } else {
+        $("html").css("background-image", "url('assets/images/background_night.jpeg')");
+        $(".jumbotron").css("color", "rgba(243, 245, 247, 0.7)");
+    }
     // set text content according to data info
     mainInfoEl.text(cityName + " " + momentTime.format("l"));
     tempEl.html("Temperature: " + data.current.temp + " &#8457");

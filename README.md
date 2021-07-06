@@ -24,7 +24,10 @@ git clone https://github.com/qtian13/Weather-Dashboard.git
     * The dashboard also displayed date, daily weather(indicated by an icon image), temperature in unit Fahrenheit (°F) and humidity of the next 5 days for that city.
     * The timezone data and weather data are provided by [OpenWeather](https://openweathermap.org/).
     * The UV index color code refers to [Wikipedia](https://en.wikipedia.org/wiki/Ultraviolet_index).
-4. The page layout is screen size responsive.
+4. The background image and the font color in the header changes according to the current time of the city. If it is between sunrise and sunset, the background image is daytime sky. Otherwise is night sky.
+![day time background](assets/images/night.png)
+![night time background](assets/images/daytime.png)
+5. The page layout is screen size responsive.
 
 ## Page URL
 https://qtian13.github.io/Weather-Dashboard/
