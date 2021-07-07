@@ -34,7 +34,8 @@ https://qtian13.github.io/Weather-Dashboard/
 
 ## Page Demo
 Demo for screen size >= 992 px\s\s
-![Weather Dashboard Desktop Demo](assets/images/demo.gif)\s\s
+![Weather Dashboard Desktop Demo](assets/images/demo.gif)
+\s\s
 Demo for screen size less than 992px\s\s
 ![Weather Dashboard Tablet Demo](assets/images/demo_tablet.gif)
 ## Page Screen Shot with Different Screen Width
