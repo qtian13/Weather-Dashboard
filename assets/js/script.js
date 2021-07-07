@@ -151,7 +151,7 @@ function fetchWeatherData(city) {
             return response.json();
         } else if (response.status === 404) {
             // if no data returned for the city searched for, display place holder Object
-            cityName = city + " (not found)";
+            cityName = city + " (Not Found)";
             displayData(dataDefault); 
         }
     })
@@ -165,7 +165,7 @@ function fetchWeatherData(city) {
             if (response.status === 200) {
                 return response.json();
             } else {
-                cityName = city + " (not found)";
+                cityName = city + " (Not Found)";
                 displayData(dataDefault);
             }
         })

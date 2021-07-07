@@ -14,8 +14,8 @@ git clone https://github.com/qtian13/Weather-Dashboard.git
 ## Description of the Weather Dashboard
 1. There are 3 main parts in the page: a jumbotron header, a search section and the weather dashboard.
 2. The search section includes a search bar and search history:
-    * When user enter a certain city name and click search button, the weather data of this city would be loaded on the page if it exists. If the data is not found, there would be an alert to inform the user no data found. The most recently searched city name is listed at the top of search history.
-    * The city names entered would be stored in the `Local Storage` and listed in the search history area. The search history data persists when page reloaded and the most updated weather data of the city which is most recently searched for would be displayed on the dashboard.
+    * When user enter a certain city name and click search button, the weather data of this city would be loaded on the page if it exists. If the data is not found, `(Not Found)` is followed by the city name and no data is displayed on the dashboard. The most recently searched city name is listed at the top of search history.
+    * The city names entered would be stored in the `Local Storage` and listed in the search history area. When user refreshes the page, search history persists and the most updated weather data of the city searched most recently would be displayed on the dashboard.
     * User can click any city in the search history to load the updated weather data of it. And the city would be at the top of search history as most recently searched. The search history item changes background color when a mouse hover over it.
     * The search history is hidden when the page displayed in the window of width < 992px. It appear when user click the input area and disappear when user click any history term or click any part except the search bar.
 3. The weather data displayed on the dashboard includes current data and 5-day forecast:
@@ -33,8 +33,10 @@ git clone https://github.com/qtian13/Weather-Dashboard.git
 https://qtian13.github.io/Weather-Dashboard/
 
 ## Page Demo
-![Weather Dashboard Demo](assets/images/demo.gif)
-
+Demo for screen size >= 992 px
+![Weather Dashboard Desktop Demo](assets/images/demo.gif)
+Demo for screen size less than 992px
+![Weather Dashboard Tablet Demo](assets/images/demo_tablet.gif)
 ## Page Screen Shot with Different Screen Width
 ![fit desktop screen](assets/images/desktop_screen.png)
 ![fit tablet screen](assets/images/tablet_screen.png)
