@@ -124,7 +124,7 @@ function updateSearchHistory(cityToAdd) {
         // if not, create the element and prepend it to an element of class named search-history-box
         var searchHistoryEl = $("<div>");
         var searchHistoryTextEl = $("<div>").text(cityToAdd);
-        var deleteButton = $("<button>").text("X");
+        var deleteButton = $("<button>").text("x");
         searchHistoryEl.addClass("search-history d-flex");
         searchHistoryTextEl.addClass("search-history-text");
         deleteButton.addClass("btn delete-button");
@@ -137,10 +137,10 @@ function updateSearchHistory(cityToAdd) {
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));  
 }
 
-function fetchWeatherData(cityName) {
+function fetchWeatherData(city) {
     // create a request url
     var APIKey = "7c84bd2799ba53ed40763cdc11025a8e";
-    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
+    var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey;
     
     // empty the dashboard
     $(".weather-current").empty();
@@ -151,10 +151,8 @@ function fetchWeatherData(cityName) {
             return response.json();
         } else if (response.status === 404) {
             // if no data returned for the city searched for, display place holder Object
-            displayData(dataDefault);
-            $(document).ready(function(){
-                alert("Sorry we cannot find weather data of this city!");
-            });   
+            cityName = city + " (not found)";
+            displayData(dataDefault); 
         }
     })
     .then(function(data) {
@@ -167,10 +165,8 @@ function fetchWeatherData(cityName) {
             if (response.status === 200) {
                 return response.json();
             } else {
+                cityName = city + " (not found)";
                 displayData(dataDefault);
-                $(document).ready(function(){
-                    alert("Sorry we cannot find weather data of this city!");
-                });
             }
         })
         .then(function(data) {
@@ -192,12 +188,11 @@ function displayData(data) {
     var uvIndexEl = $("<div>");
     var uvIndexNum = $("<span>");
     var imgEl = $("<img>");
-    console.log(data);
     // calc the local time of the city searched for
     var momentTime = data.timezone === "x"  ? moment() 
                                             : moment().utcOffset(data.timezone_offset / 60);
     // change the background image and font color in jumbotron
-    if (data.timezone === "x" || ((data.current.dt >= data.current.sunrise) && (data.current.dt < data.current.sunset))) {
+    if (data.timezone === "x" || (((data.current.dt + data.timezone_offset) >= data.current.sunrise) && ((data.current.dt + data.timezone_offset) < data.current.sunset))) {
         $("html").css("background-image", "url('assets/images/background.jpeg')");
         $(".jumbotron").css("color", "rgba(27, 28, 29, 0.9)");
     } else {
