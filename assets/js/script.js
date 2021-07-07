@@ -192,7 +192,7 @@ function displayData(data) {
     var momentTime = data.timezone === "x"  ? moment() 
                                             : moment().utcOffset(data.timezone_offset / 60);
     // change the background image and font color in jumbotron
-    if (data.timezone === "x" || (((data.current.dt + data.timezone_offset) >= data.current.sunrise) && ((data.current.dt + data.timezone_offset) < data.current.sunset))) {
+    if (data.timezone === "x" || ((data.current.dt >= data.current.sunrise) && (data.current.dt < data.current.sunset))) {
         $("html").css("background-image", "url('assets/images/background.jpeg')");
         $(".jumbotron").css("color", "rgba(27, 28, 29, 0.9)");
     } else {
