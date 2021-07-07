@@ -146,36 +146,36 @@ function fetchWeatherData(city) {
     $(".weather-current").empty();
     $(".weather-forecast-card").empty();
     fetch(requestUrl)
-    .then(function(response) {
-        if (response.status === 200) {
-            return response.json();
-        } else if (response.status === 404) {
-            // if no data returned for the city searched for, display place holder Object
-            cityName = city + " (Not Found)";
-            displayData(dataDefault); 
-        }
-    })
-    .then(function(data) {
-        if (data === undefined) {
-            return;
-        }
-        requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=" + APIKey;
-        fetch(requestUrl)
         .then(function(response) {
-            if (response.status === 200) {
-                return response.json();
-            } else {
+            if (response.status === 404) {
+                // if no data returned for the city searched for, display place holder Object
                 cityName = city + " (Not Found)";
-                displayData(dataDefault);
+                displayData(dataDefault); 
+            } else {
+                return response.json();
             }
         })
         .then(function(data) {
             if (data === undefined) {
                 return;
             }
-            displayData(data);
+            requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + data.coord.lat + "&lon=" + data.coord.lon + "&exclude=minutely,hourly&units=imperial&appid=" + APIKey;
+            fetch(requestUrl)
+                .then(function(response) {
+                    if (response.status === 404) {
+                        cityName = city + " (Not Found)";
+                        displayData(dataDefault);
+                    } else {
+                        return response.json();
+                    }
+                })
+                .then(function(data) {
+                    if (data === undefined) {
+                        return;
+                    }
+                    displayData(data);
+                })
         })
-    })
 }
 
 // display data info in the dashboard
