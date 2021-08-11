@@ -1,4 +1,7 @@
 # Weather Dashboard
+
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 This project is to create a weather dashboard. The current weather and 5-day forecast weather data would be displayed when user search for a city.
 ## Getting Started
 ```console
@@ -47,7 +50,7 @@ Demo for screen size less than 992px
 
 ## Author
 Qiushuang Tian
-- [Link to Portfolio Site](https://qtian13.github.io/)
+- [Link to Portfolio Site](https://qtian13.github.io/portfolioUpdate/)
 - [Link to Github](https://github.com/qtian13)
 - [Link to LinkedIn](https://www.linkedin.com/in/qiushuang-tian-a9754248/)
 
